@@ -8,7 +8,20 @@ class Home extends StatefulWidget {
     }
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with TickerProviderStateMixin {
+  Animation<double> catAnimation; // declare instance variable
+  AnimationController catController; // declare instance variable
+
+  @override
+    void initState() {
+      super.initState();
+
+      catController = AnimationController(
+        duration: Duration(seconds: 2),
+        vsync: this,
+      );
+    }
+
   @override
     Widget build(BuildContext context) {
       return Scaffold(
