@@ -20,6 +20,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         duration: Duration(seconds: 2),
         vsync: this,
       );
+
+      catAnimation = Tween(begin: 0.0, end: 100.0).animate(
+        CurvedAnimation(
+          parent: catController,
+          curve: Curves.easeIn,
+        ),
+      );
+
+      catController.forward();
     }
 
   @override
@@ -33,6 +42,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     }
 
     Widget buildAnimation() {
-      return Cat();
+      return AnimatedBuilder(
+        animation: catAnimation, // catAnimation records the current value of the property being animated
+        child: Cat(),
+        builder: (BuildContext context, Widget child) {
+          return Container(
+            child: child,
+            margin: EdgeInsets.only(top: catAnimation.value),
+          );
+        },
+      );
     }
 }
